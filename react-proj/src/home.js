@@ -1,8 +1,17 @@
+import NavBar from './navbar'
+import UserTable from './userTable.tsx'
+
+
+
 function HomePage() {
 
-
+    
     return (
-        <>Home page...</>
+        <>
+            <NavBar />
+            
+            <UserTable />
+        </>
     );
 }
 
