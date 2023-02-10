@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./index.css";
 import { SearchOutlined } from "@ant-design/icons";
 import type { InputRef } from "antd";
@@ -18,37 +18,20 @@ interface DataType {
 
 type DataIndex = keyof DataType;
 
-const data: DataType[] = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "2",
-    name: "Joe Black",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "3",
-    name: "Jim Green",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-  },
-  {
-    key: "4",
-    name: "Jim Red",
-    age: 32,
-    address: "London No. 2 Lake Park",
-  },
-];
+
 
 const UserTable: React.FC = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
+
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    const values = JSON?.parse(localStorage?.getItem('userData'));
+    if (values) {
+     setItems(values);
+    }
+  }, []);
 
   const handleSearch = (
     selectedKeys: string[],
@@ -200,9 +183,9 @@ const UserTable: React.FC = () => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-       <UserForm />
+       <UserForm handleCancel={handleCancel} />
       </Modal>
-      <Table columns={columns} dataSource={data} pagination={false} />
+      <Table columns={columns} dataSource={items} pagination={false} />
     </>
   );
 };
