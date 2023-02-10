@@ -1,8 +1,22 @@
 import { Button, Form, Input } from "antd";
-const UserForm = ({handleCancel}) => {
+import React, {  useState, useEffect } from "react";
+
+const UserForm = ({handleCancel,pull_data}) => {
     const [form] = Form.useForm();
+    const [items, setItems] = useState([]);
+  useEffect(() => {
+    const values = JSON?.parse(localStorage?.getItem('userData'));
+    if (values) {
+     setItems(values);
+    }
+  }, []);
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
+        const va = JSON?.parse(localStorage?.getItem('userData'));
+        console.log(va)
+        va.push(values)
+        localStorage.setItem('userData', JSON.stringify(va));
+        pull_data()
         handleCancel()
         form.resetFields();
     };

@@ -173,7 +173,12 @@ const UserTable: React.FC = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
+  const pull_data = () => {
+    const values = JSON?.parse(localStorage?.getItem('userData'));
+    if (values) {
+     setItems(values);
+    }
+  }
   return (
     <>
       <Button onClick={showModal}>Add</Button>
@@ -183,7 +188,7 @@ const UserTable: React.FC = () => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-       <UserForm handleCancel={handleCancel} />
+       <UserForm handleCancel={handleCancel} pull_data={pull_data} />
       </Modal>
       <Table columns={columns} dataSource={items} pagination={false} />
     </>
